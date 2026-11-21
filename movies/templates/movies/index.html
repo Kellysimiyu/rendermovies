@@ -1,0 +1,33 @@
+{% extends "movies/base.html" %}
+{% block title %}{{ SITE_NAME }} — Watch Free Movies & Videos Online{% endblock %}
+{% block description %}Watch free movies, trailers and videos online on {{ SITE_NAME }}. Search thousands of titles, no sign-up.{% endblock %}
+{% block content %}
+<section class="hero">
+  <h1>Watch Free Movies Online</h1>
+  <p>{{ total }} titles in catalogue.</p>
+</section>
+
+{% if featured %}
+<h2>Featured</h2>
+<div class="grid">
+  {% for m in featured %}
+  <a class="card" href="{{ m.get_absolute_url }}">
+    {% if m.poster %}<img src="{{ m.poster.url }}" alt="{{ m.title }}">{% endif %}
+    <span>{{ m.title }}</span>
+  </a>
+  {% endfor %}
+</div>
+{% endif %}
+
+<h2>All Videos</h2>
+<div class="grid">
+  {% for m in movies %}
+  <a class="card" href="{{ m.get_absolute_url }}">
+    {% if m.poster %}<img src="{{ m.poster.url }}" alt="{{ m.title }}">{% endif %}
+    <span>{{ m.title }}</span>
+  </a>
+  {% empty %}
+  <p>No movies yet — add some in the admin.</p>
+  {% endfor %}
+</div>
+{% endblock %}

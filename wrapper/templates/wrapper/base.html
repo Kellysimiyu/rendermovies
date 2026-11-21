@@ -1,0 +1,73 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Primary SEO -->
+  <title>{% block title %}{{ SITE_NAME }} — Watch Free Movies Online{% endblock %}</title>
+  <meta name="description" content="{% block description %}{{ SITE_DESCRIPTION }}{% endblock %}">
+  <meta name="keywords" content="{{ SITE_KEYWORDS }}">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="googlebot" content="index, follow">
+  <meta name="theme-color" content="#0b0b0d">
+  <meta name="author" content="{{ SITE_NAME }}">
+  <link rel="canonical" href="{{ CANONICAL_URL }}">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="{{ SITE_NAME }}">
+  <meta property="og:title" content="{% block og_title %}{{ SITE_NAME }} — Watch Free Movies Online{% endblock %}">
+  <meta property="og:description" content="{% block og_description %}{{ SITE_DESCRIPTION }}{% endblock %}">
+  <meta property="og:url" content="{{ CANONICAL_URL }}">
+  <meta property="og:locale" content="en_US">
+  {% block og_image %}{% endblock %}
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{% block tw_title %}{{ SITE_NAME }} — Watch Free Movies Online{% endblock %}">
+  <meta name="twitter:description" content="{% block tw_description %}{{ SITE_DESCRIPTION }}{% endblock %}">
+  {% block tw_image %}{% endblock %}
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎬</text></svg>">
+
+  <!-- Structured data: WebSite -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "{{ SITE_NAME }}",
+    "alternateName": "Free Movies Online",
+    "description": "{{ SITE_DESCRIPTION|escapejs }}",
+    "url": "{{ SITE_URL }}/",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "{{ SITE_URL }}/?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+<header class="topbar">
+  <a class="logo" href="{% url 'wrapper:movies' %}">🎬 {{ SITE_NAME }}</a>
+  <nav>
+    <a href="{% url 'wrapper:movies' %}">Movies</a>
+    <a href="{% url 'wrapper:download' %}">Download App</a>
+  </nav>
+</header>
+
+<main class="frame-wrap">
+  {% block content %}{% endblock %}
+</main>
+
+<footer class="site-footer">
+  <p>&copy; {% now "Y" %} {{ SITE_NAME }} — free streaming, ad-free.</p>
+</footer>
+</body>
+</html>

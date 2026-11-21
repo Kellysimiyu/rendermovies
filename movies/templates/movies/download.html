@@ -1,0 +1,43 @@
+{% extends "movies/base.html" %}
+{% block title %}Download {{ SITE_NAME }} — Free Movies App{% endblock %}
+{% block description %}Download {{ SITE_NAME }} for Android phone or Android TV. Free, lightweight, no ads, thousands of movies.{% endblock %}
+{% block content %}
+<section class="hero">
+  <h1>Download MovieZone</h1>
+  <p>Install the app on your phone or Android TV. Free, no sign-up.</p>
+</section>
+
+<div class="grid two">
+  <div class="card static">
+    <h3>📱 Phone</h3>
+    {% if phone %}
+      <p>v{{ phone.version }} · {{ phone.size_mb }} MB</p>
+      {% if phone.notes %}<p>{{ phone.notes }}</p>{% endif %}
+      <a class="btn" href="{% url 'movies:download_file' phone.pk %}">⬇ Download APK</a>
+    {% else %}
+      <p>No phone build available yet.</p>
+    {% endif %}
+  </div>
+
+  <div class="card static">
+    <h3>📺 Android TV</h3>
+    {% if tv %}
+      <p>v{{ tv.version }} · {{ tv.size_mb }} MB</p>
+      {% if tv.notes %}<p>{{ tv.notes }}</p>{% endif %}
+      <a class="btn" href="{% url 'movies:download_file' tv.pk %}">⬇ Download APK</a>
+    {% else %}
+      <p>No TV build available yet.</p>
+    {% endif %}
+  </div>
+</div>
+
+<h2>Why MovieZone?</h2>
+<ul class="features">
+  <li>🚫 No Ads</li>
+  <li>📺 TV Ready</li>
+  <li>⚡ Lightweight</li>
+  <li>🎬 Thousands of Movies</li>
+  <li>💸 100% Free</li>
+  <li>🔄 Always Up-to-date</li>
+</ul>
+{% endblock %}

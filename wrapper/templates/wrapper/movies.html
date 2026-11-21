@@ -1,0 +1,26 @@
+{% extends "wrapper/base.html" %}
+{% block title %}{{ SITE_NAME }} — Watch Free Movies & Videos Online{% endblock %}
+{% block description %}Watch free movies, trailers, animations and videos online on {{ SITE_NAME }}. Search thousands of titles, stream instantly, no sign-up.{% endblock %}
+{% block content %}
+<iframe
+  id="movies-frame"
+  src="{{ remote_url }}"
+  title="Movies catalogue"
+  referrerpolicy="no-referrer"
+  allow="autoplay; fullscreen; encrypted-media"
+  allowfullscreen
+  loading="eager"
+  sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-presentation">
+</iframe>
+
+<script>
+(function () {
+  const iframe = document.getElementById("movies-frame");
+  let loaded = false;
+  iframe.addEventListener("load", () => { loaded = true; });
+  setTimeout(() => {
+    if (!loaded) iframe.src = "{% url 'wrapper:proxy_movies' path='' %}";
+  }, 6000);
+})();
+</script>
+{% endblock %}

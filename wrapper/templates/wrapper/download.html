@@ -1,0 +1,25 @@
+{% extends "wrapper/base.html" %}
+{% block title %}Download {{ SITE_NAME }} — Free Movies App for Phone & Android TV{% endblock %}
+{% block description %}Download {{ SITE_NAME }} for Android phone or Android TV. Free, lightweight APK, no ads, no sign-up, thousands of movies.{% endblock %}
+{% block content %}
+<iframe
+  id="download-frame"
+  src="{{ remote_url }}"
+  title="Download MovieZone app"
+  referrerpolicy="no-referrer"
+  allowfullscreen
+  loading="eager"
+  sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-downloads">
+</iframe>
+
+<script>
+(function () {
+  const iframe = document.getElementById("download-frame");
+  let loaded = false;
+  iframe.addEventListener("load", () => { loaded = true; });
+  setTimeout(() => {
+    if (!loaded) iframe.src = "{% url 'wrapper:proxy_download' path='' %}";
+  }, 6000);
+})();
+</script>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "movies/base.html" %}
+{% block title %}{{ video_id }} — Watch Free on {{ SITE_NAME }}{% endblock %}
+{% block description %}Watch this video free in HD on {{ SITE_NAME }}. No ads, no sign-up, instant playback.{% endblock %}
+{% block og_image %}
+<meta property="og:image" content="https://i.ytimg.com/vi/{{ video_id }}/hqdefault.jpg">
+{% endblock %}
+{% block tw_image %}
+<meta name="twitter:image" content="https://i.ytimg.com/vi/{{ video_id }}/hqdefault.jpg">
+{% endblock %}
+{% block content %}
+<h1>{{ video_id }}</h1>
+
+{% if stream_ok %}
+  <div class="player">
+    <video id="mz-player" controls autoplay playsinline preload="metadata"
+           src="{{ stream_url }}"></video>
+  </div>
+{% else %}
+  <div class="alert">
+    🚫 Stream could not be resolved — the video may be region-locked,
+    age-restricted, or the server was blocked by YouTube.
+  </div>
+{% endif %}
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "{{ video_id }}",
+  "description": "Watch free on {{ SITE_NAME }}",
+  "thumbnailUrl": ["https://i.ytimg.com/vi/{{ video_id }}/hqdefault.jpg"],
+  "uploadDate": "2024-01-01",
+  "embedUrl": "{{ SITE_URL }}/play/{{ video_id }}/",
+  "url": "{{ CANONICAL_URL }}"
+}
+</script>
+
+<script>
+(function () {
+  const BLOCK = ["doubleclick.net","googlesyndication.com","googleadservices.com",
+                 "/pagead/","/ptracking","/get_midroll_info","/api/stats/ads"];
+  const isAd = u => !!u && BLOCK.some(p => String(u).includes(p));
+  const of = window.fetch;
+  window.fetch = function (i) {
+    const u = typeof i === "string" ? i : i.url;
+    if (isAd(u)) return Promise.reject(new Error("adblock"));
+    return of.apply(this, arguments);
+  };
+  const oo = XMLHttpRequest.prototype.open;
+  XMLHttpRequest.prototype.open = function (m, u) {
+    if (isAd(u)) { this.abort(); return; }
+    return oo.apply(this, arguments);
+  };
+})();
+</script>
+{% endblock %}

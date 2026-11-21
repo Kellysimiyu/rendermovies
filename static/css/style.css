@@ -1,0 +1,20 @@
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; font-family: system-ui, sans-serif; background: #0f1115; color: #f2f4f8; }
+.topbar { display: flex; align-items: center; gap: 1rem; padding: .6rem 1rem; background: #000; position: sticky; top: 0; z-index: 10; }
+.logo { color: #e50914; font-weight: 700; font-size: 1.2rem; text-decoration: none; }
+.topbar nav { margin-left: auto; display: flex; gap: .5rem; }
+.topbar nav a { color: #ddd; text-decoration: none; padding: .4rem .8rem; border-radius: 6px; }
+.topbar nav a.active, .topbar nav a:hover { background: #e50914; color: #fff; }
+.notice { padding: .5rem 1rem; background: #1b1f27; font-size: .85rem; color: #bbb; display: flex; gap: .5rem; flex-wrap: wrap; align-items: center; }
+.notice a { color: #e50914; }
+.frame-wrap { display: flex; flex-direction: column; height: calc(100vh - 52px); }
+iframe { flex: 1; width: 100%; border: 0; background: #000; }
+
+.site-footer {
+  text-align: center;
+  padding: 1.5rem 1rem;
+  font-size: .85rem;
+  color: #888;
+  border-top: 1px solid #232329;
+  margin-top: 1rem;
+}
